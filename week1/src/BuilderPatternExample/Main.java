@@ -3,9 +3,8 @@ package BuilderPatternExample;
 public class Main {
     
     public static void main(String[] args) {
-        System.out.println("=== Builder Pattern - Computer Configuration ===\n");
         
-        System.out.println("--- Gaming Computer ---");
+        System.out.println("------ Gaming Computer ---");
         Computer gamingComputer = new Computer.Builder()
             .setCpu("Intel Core i9-13900K")
             .setRam("32GB DDR5")
@@ -17,7 +16,7 @@ public class Main {
         
         gamingComputer.displaySpecs();
         
-        System.out.println("\n--- Office Computer ---");
+        System.out.println("\n----- Office Computer ---");
         Computer officeComputer = new Computer.Builder()
             .setCpu("Intel Core i5-13600K")
             .setRam("16GB DDR4")
@@ -28,11 +27,11 @@ public class Main {
         
         officeComputer.displaySpecs();
         
-        System.out.println("\n--- Budget Computer ---");
+        System.out.println("\n----- Budget Computer ---");
         Computer budgetComputer = new Computer.Builder()
             .setCpu("AMD Ryzen 5 5500")
-            .setRam("8GB DDR4")
-            .setStorage("256GB SSD")
+            .setRam("8GB DDR6")
+            .setStorage("1000GB SSD")
             .setPowerSupply("500W Bronze")
             .build();
         
