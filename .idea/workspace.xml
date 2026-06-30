@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5e5edf4a-486f-407a-9d3f-72bcc2f51aea" name="Changes" comment="first execrise">
+    <list default="true" id="5e5edf4a-486f-407a-9d3f-72bcc2f51aea" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,6 +71,7 @@
       <workItem from="1782150198979" duration="201000" />
       <workItem from="1782150757109" duration="640000" />
       <workItem from="1782192751915" duration="31000" />
+      <workItem from="1782616104973" duration="6000" />
     </task>
     <task id="LOCAL-00001" summary="first execrise">
       <option name="closed" value="true" />
