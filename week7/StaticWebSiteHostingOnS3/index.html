@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velora — Calm Operations for Modern Teams</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(255, 255, 255, 0.08);
+      --panel-strong: rgba(255, 255, 255, 0.14);
+      --border: rgba(255, 255, 255, 0.14);
+      --text: #f5f7ff;
+      --muted: #97a3bd;
+      --accent: #71f2d4;
+      --accent-2: #8b7cff;
+      --accent-3: #ff8a5b;
+      --shadow: 0 20px 60px rgba(3, 10, 24, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(113, 242, 212, 0.16), transparent 32%),
+        radial-gradient(circle at right center, rgba(139, 124, 255, 0.2), transparent 28%),
+        var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.45), transparent 90%);
+      pointer-events: none;
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 24px 64px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(7, 17, 31, 0.72);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #04101b;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary {
+      color: #04101b;
+      background: linear-gradient(135deg, var(--accent), #c9ffef);
+      box-shadow: 0 12px 24px rgba(113, 242, 212, 0.2);
+    }
+
+    .btn.ghost {
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 30px;
+      align-items: center;
+      padding: 74px 0 44px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 4vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      max-width: 620px;
+      margin-bottom: 22px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .trust-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .trust-list li {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+    }
+
+    .hero-card {
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 20px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dots span:nth-child(1) { background: var(--accent-3); }
+    .dots span:nth-child(2) { background: #f4c95d; }
+    .dots span:nth-child(3) { background: var(--accent); }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .mini-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(3, 10, 24, 0.42);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mini-card h3 {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .mini-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 1.6rem;
+      margin-top: 10px;
+      color: var(--accent);
+    }
+
+    .section {
+      padding: 34px 0;
+    }
+
+    .section-title {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+      letter-spacing: -0.03em;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .feature .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(113,242,212,0.2), rgba(139,124,255,0.2));
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .feature h3 { margin-bottom: 8px; }
+    .feature p { color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .panel h3 { margin-bottom: 14px; }
+    .panel ul { list-style: none; display: grid; gap: 10px; }
+    .panel li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .panel li:last-child { border-bottom: none; }
+    .panel strong { color: var(--text); }
+
+    .cta {
+      margin-top: 24px;
+      padding: 32px;
+      border-radius: 28px;
+      text-align: center;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(113,242,212,0.12), rgba(139,124,255,0.12));
+    }
+
+    .cta h2 { margin-bottom: 10px; font-size: clamp(1.5rem, 2.3vw, 2.1rem); }
+    .cta p { color: var(--muted); margin-bottom: 18px; }
+
+    footer {
+      padding: 20px 0 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 34px;
+    }
+
+    @media (max-width: 900px) {
+      .hero, .split, .feature-grid { grid-template-columns: 1fr; }
+      .topbar { border-radius: 24px; flex-wrap: wrap; gap: 12px; }
+      .nav-links { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a href="#" class="brand"><span class="brand-mark">V</span> Velora</a>
+      <nav class="nav-links">
+        <a href="#platform">Platform</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#launch">Launch</a>
+      </nav>
+      <a class="btn ghost" href="#launch">Book a demo</a>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">✨ AI-powered operations studio</div>
+        <h1>Make your next launch feel lighter, faster, and beautifully in control.</h1>
+        <p>Velora brings strategy, delivery, and customer signals into one calm workspace so teams can focus on momentum instead of busywork.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#launch">Start free</a>
+          <a class="btn ghost" href="#platform">See the platform</a>
+        </div>
+        <ul class="trust-list">
+          <li>Zero setup friction</li>
+          <li>Built for fast-moving teams</li>
+          <li>Live insights in minutes</li>
+        </ul>
+      </div>
+
+      <div class="hero-card">
+        <div class="card-top">
+          <span>Velocity board</span>
+          <div class="dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="card-grid">
+          <div class="mini-card">
+            <h3>Momentum</h3>
+            <p>Weekly execution health</p>
+            <strong>94%</strong>
+          </div>
+          <div class="mini-card">
+            <h3>Delivery</h3>
+            <p>Projects shipped this month</p>
+            <strong>28</strong>
+          </div>
+          <div class="mini-card">
+            <h3>Focus time</h3>
+            <p>Protected work hours gained</p>
+            <strong>+18h</strong>
+          </div>
+          <div class="mini-card">
+            <h3>Customer pulse</h3>
+            <p>Sentiment trend</p>
+            <strong>▲ 12</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="platform" class="section">
+      <div class="section-title">
+        <div class="eyebrow">⚙️ Why teams choose Velora</div>
+        <h2>Everything your team needs, arranged for calm momentum.</h2>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="icon">✦</div>
+          <h3>Unified planning</h3>
+          <p>Keep roadmaps, tasks, and customer requests in one view without the usual clutter.</p>
+        </article>
+        <article class="feature">
+          <div class="icon">↺</div>
+          <h3>Flexible workflows</h3>
+          <p>Adapt to your process with visual boards, automations, and shared rituals that stay simple.</p>
+        </article>
+        <article class="feature">
+          <div class="icon">◎</div>
+          <h3>Clear visibility</h3>
+          <p>Turn progress into action with live dashboards designed for sharp decisions and less noise.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="workflow" class="section split">
+      <div class="panel">
+        <div class="eyebrow">🧭 Built for clarity</div>
+        <h3>From idea to delivery without the chaos</h3>
+        <ul>
+          <li><span>Capture</span><strong>Ideas and requests</strong></li>
+          <li><span>Prioritize</span><strong>What matters most</strong></li>
+          <li><span>Launch</span><strong>With confidence and pace</strong></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="eyebrow">📈 Team signal</div>
+        <h3>See momentum before it becomes a fire drill</h3>
+        <ul>
+          <li><span>Risk alerts</span><strong>Early and actionable</strong></li>
+          <li><span>Automations</span><strong>Remove repetitive work</strong></li>
+          <li><span>Shared focus</span><strong>Everyone stays aligned</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="launch" class="cta">
+      <h2>Ready to give your team a calmer operating system?</h2>
+      <p>Bring structure, speed, and visibility into one elegant experience.</p>
+      <a class="btn primary" href="#">Request a walkthrough</a>
+    </section>
+
+    <footer>
+      <span>© 2026 Velora</span>
+      <span>Crafted for modern teams that want more clarity.</span>
+    </footer>
+  </div>
